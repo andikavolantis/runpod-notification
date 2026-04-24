@@ -32,18 +32,17 @@ def get_balance():
     query = """
     {
       myself {
-        balance
+        clientBalance
       }
     }
     """
 
     resp = requests.post(
-        GRAPHQL_URL,
+        GRAPHQL_URL + f"?api_key={RUNPOD_API_KEY}",
         json={"query": query},
-        headers={"Authorization": f"Bearer {RUNPOD_API_KEY}"},
     )
     resp.raise_for_status()
-    return float(resp.json()["data"]["myself"]["balance"])
+    return float(resp.json()["data"]["myself"]["clientBalance"])
 
 
 # ===== COST CALC =====
